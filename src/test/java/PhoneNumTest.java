@@ -12,33 +12,53 @@ public class PhoneNumTest {
     }
 
     /**
-     * 11位数字是手机号测试
-     */
-    @Test
-    public void positiveTest() {
-        Assert.assertEquals("中国电信",phoneNumJudge.judgePhoneNum("19167867643"));
-        Assert.assertEquals("中国联通",phoneNumJudge.judgePhoneNum("13057186923"));
-        Assert.assertEquals("中国移动",phoneNumJudge.judgePhoneNum("13457186923"));
-    }
-
-
-    /**
-     * 非法输入测试
+     * 空输入测试
      */
     @Test
     public void nullInputTest(){
         Assert.assertEquals("输入不合法",phoneNumJudge.judgePhoneNum(""));
     }
 
+    /**
+     * 有非数字字符输入测试
+     */
     @Test
-    public void lengthIllegalInputTest(){
-        Assert.assertEquals("输入不合法",phoneNumJudge.judgePhoneNum("123"));
+    public void haveOtherCharsTest(){
+        Assert.assertEquals("输入不合法",phoneNumJudge.judgePhoneNum("191****7925"));
+    }
+
+    /**
+     * 长度小于11畋测试
+     */
+    @Test
+    public void smallLengthInputTest(){
+        Assert.assertEquals("输入不合法",phoneNumJudge.judgePhoneNum("191"));
 
     }
 
+    /**
+     * 长度大于11输入测试
+     */
     @Test
-    public void notNumInputTest(){
-        Assert.assertEquals("输入不合法",phoneNumJudge.judgePhoneNum("134*57935509"));
-        Assert.assertEquals("输入不合法",phoneNumJudge.judgePhoneNum("191*579"));
+    public void bigLengthInputTest(){
+        Assert.assertEquals("输入不合法",phoneNumJudge.judgePhoneNum("191666688889"));
+    }
+
+    /**
+     * 11位数字
+     * 是手机号测试
+     */
+    @Test
+    public void positiveInputTest() {
+        Assert.assertEquals("是手机号",phoneNumJudge.judgePhoneNum("19166668888"));
+    }
+
+    /**
+     * 11位数字
+     * 但不是手机号测试
+     */
+    @Test
+    public void negativeInputTest() {
+        Assert.assertEquals("不是手机号",phoneNumJudge.judgePhoneNum("12366668888"));
     }
 }

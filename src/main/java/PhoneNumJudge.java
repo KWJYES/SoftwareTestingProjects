@@ -7,6 +7,9 @@ public class PhoneNumJudge {
     //存放三大运营商号码的前3位——网络识别号
     private final Map<String, String> networkIdNumMap;
 
+    /**
+     * 构造函数，初始化 networkIdNumMap
+     */
     public PhoneNumJudge() {
         networkIdNumMap = new HashMap<>();
         //中国电信 133、149、153、173、177、180、181、189、191、199
@@ -57,21 +60,28 @@ public class PhoneNumJudge {
     /**
      * 输入一个11位数字的字符串，
      * 判断它是不是一个手机号码，
-     * 如果是返回该手机号的所属的“运营商名称”
+     * 如果是返回“是手机号”
      * 如果不是返回“不是一个手机号”
+     * 输入有非数字字符或长度小于或大于11位时为非法输入
      *
      * @param phoneNum 输入的字符串
      * @return 判断结果
      */
     public String judgePhoneNum(String phoneNum) {
+        //是否为空输入
+        if(phoneNum.isEmpty()) return "输入不合法";
+        //是否有数字以外的其它字符
         for (int i = 0; i < phoneNum.length(); i++) {
             if (phoneNum.charAt(i) < '0' || phoneNum.charAt(i) > '9')
                 return "输入不合法";
         }
-        if (phoneNum.length() == 11 && networkIdNumMap.containsKey(phoneNum.substring(0, 3))) {
-            return networkIdNumMap.get(phoneNum.substring(0, 3));
+        //长度是否为11
+        if(phoneNum.length() != 11)  return "输入不合法";
+        //前三位网络识别码是否合法
+        if (networkIdNumMap.containsKey(phoneNum.substring(0, 3))) {
+            return "是手机号";
         } else {
-            return "不是一个手机号";
+            return "不是手机号";
         }
     }
 
